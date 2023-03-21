@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<h1>Users</h1>
+<hr>
+<form action="/users/new">
+    <input type="submit" value="Create a new user">
+</form>
+{% for user in users %}
+<ul>
+    <li>{{user['id']}} | {{user['name']}} | {{user['email']}}</li>
+</ul>
+{% endfor %}
+</body>
+</html>
