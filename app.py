@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request, redirect
 import json
+import uuid
 
 app = Flask(__name__)
-
-id_user = 0
 
 
 @app.route("/")
@@ -32,10 +31,9 @@ def validate(user):
 
 @app.post("/users")
 def users_post():
-    global id_user
-    id_user = id_user + 1
+    id_user = uuid.uuid4()
     user = request.form.to_dict()
-    new_user = {'id': id_user,
+    new_user = {'id': str(id_user),
                 'name': user['name'],
                 'email': user['email']}
     errors = validate(new_user)
@@ -57,3 +55,7 @@ def show_users():
         data = json.load(file)
         users = data["users"]
     return render_template("/users/show_users.html", users=users)
+
+
+# if __name__ == "__main__":
+#     app.run(debug=True)

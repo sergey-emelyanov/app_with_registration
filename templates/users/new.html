@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>New user</title>
+    <link type="text/css" href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet" />
 </head>
 <body>
 <h1>New User</h1>
 <hr>
-<form action="/users" method="post">
+<form action="/users" method="post" class="user_form">
     <div>
         <label>
             Nickname:
             <input type="text" name="name" value="{{user.name}}">
         </label>
         {% if errors['name'] %}
-        <div>{{errors['name']}}</div>
+        <div class="error_message">{{errors['name']}}</div>
         {% endif %}
     </div>
     <div>
@@ -23,7 +24,7 @@
             <input type="text" name="email" value="{{user.email}}">
         </label>
         {% if errors['email'] %}
-        <div>{{errors['email']}}</div>
+        <div class="error_message">{{errors['email']}}</div>
         {% endif %}
     </div>
     <input type="submit" name="Sign up">
