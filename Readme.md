@@ -1,5 +1,6 @@
 # Educational web application with a user registration form made using flask
-
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+![flask](https://img.shields.io/badge/flask-2.0.3-blue)
 ___
 ## Description
 
