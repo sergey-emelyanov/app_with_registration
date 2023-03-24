@@ -16,7 +16,7 @@ ___
 * python 3.10
 * Flask 2.0.3
 * Jinja2 3.0.3
-* Werkzeug==2.0.3
+* Werkzeug 2.0.3
 
 ___
 ## Install
