@@ -40,3 +40,14 @@ button {
     font-weight:bold;
     color: #800000;
 }
+
+.flash {padding: 10px;}
+.success {
+         border: 1px solid #21DB56;
+         background: #AEFFC5;
+         width: 20%
+}
+.error {
+         border: 1px solid #FF4343;
+         background: #FF9C9C;
+}

@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, flash, get_flashed_messages, render_template, request, redirect, url_for
 from validator import validate
 import json
 import uuid
 
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = "SECRET"
 
 
 @app.route("/")
@@ -18,7 +20,8 @@ def users_new():
         'email': '',
     }
     errors = {}
-    return render_template("/users/new.html", user=user, errors=errors)
+    messages = get_flashed_messages(with_categories=True)
+    return render_template("/users/new.html", user=user, errors=errors, messages=messages)
 
 
 @app.post("/users")
@@ -30,15 +33,19 @@ def users_post():
                 'email': user['email']}
     errors = validate(new_user)
     if errors:
-        return render_template("/users/new.html", user=new_user, errors=errors)
-    with open("data_file.json", "r", encoding="utf-8") as file:
-        data = json.load(file)
-        data["users"].append(new_user)
+        flash('Error', category='error')
+        messages = get_flashed_messages(with_categories=True)
+        return render_template("/users/new.html", user=new_user, errors=errors, messages=messages)
+    else:
+        with open("data_file.json", "r", encoding="utf-8") as file:
+            data = json.load(file)
+            data["users"].append(new_user)
 
-    with open("data_file.json", "w", encoding="utf-8") as output_file:
-        json.dump(data, output_file, ensure_ascii=False)
+        with open("data_file.json", "w", encoding="utf-8") as output_file:
+            json.dump(data, output_file, ensure_ascii=False)
 
-    return redirect(url_for("show_users"), 302)
+        flash('User created successfully', 'success')
+        return redirect(url_for("show_users"), 302)
 
 
 @app.route("/users")
@@ -46,8 +53,10 @@ def show_users():
     with open("data_file.json", "r", encoding="utf-8") as file:
         data = json.load(file)
         users = data["users"]
-    return render_template("/users/show_users.html", users=users)
 
+    messages = get_flashed_messages(with_categories=True)
+
+    return render_template("/users/show_users.html", users=users, messages=messages)
 
 # if __name__ == "__main__":
 #     app.run(debug=True)

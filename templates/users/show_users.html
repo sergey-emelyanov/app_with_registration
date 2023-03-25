@@ -3,11 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
-    <link type="text/css" href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet" />
+    <link type="text/css" href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet"/>
 </head>
 <body>
 <h1>Users</h1>
 <hr>
+
+{% if messages %}
+    {% for category,message in messages %}
+    <div class=flash>
+        <div class="{{category}}">{{ message }}</div>
+      {% endfor %}
+    </div>
+{% endif %}
+
 <form action="/users/new">
     <input type="submit" value="Create a new user">
 </form>
@@ -16,5 +25,4 @@
     <li>{{user['id']}} | {{user['name']}} | {{user['email']}}</li>
 </ul>
 {% endfor %}
-</body>
-</html>
+
