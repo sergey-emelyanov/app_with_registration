@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from validator import validate
 import json
 import uuid
@@ -38,7 +38,7 @@ def users_post():
     with open("data_file.json", "w", encoding="utf-8") as output_file:
         json.dump(data, output_file, ensure_ascii=False)
 
-    return redirect('/users', 302)
+    return redirect(url_for("show_users"), 302)
 
 
 @app.route("/users")
